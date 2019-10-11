@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App, { IAssetData, IAssetAction } from './App';
+import App, { IProduct, IproductAction } from './App';
 import * as serviceWorker from './serviceWorker';
 import mongoose from 'mongoose';
 
@@ -32,14 +32,14 @@ window.CS.getStore().subscribe(() => {
 
 
 //just to show how the control flow works we create our first action here
-const newAsset: IAssetData = {
+const newproduct: IProduct = {
   _id: mongoose.Types.ObjectId().toString(),
-  asset_name: "Porsche comes from index.tsx",
-  asset_value: 50000
+  product_name: "Porsche comes from index.tsx",
+  product_value: 50000
 };
-const action: IAssetAction = {
-  type: ActionType.create_asset,
-  asset: newAsset
+const action: IproductAction = {
+  type: ActionType.create_product,
+  product: newproduct
 };
 //now we tell the ClientService to process the action,
 //which will cause that the subscribe() method we defined before

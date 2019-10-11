@@ -1,18 +1,18 @@
 import React from 'react';
-import { IAssetData, IAssetAction } from '../App';
+import { IProduct, IproductAction } from '../App';
 import { ActionType, IAction } from '../framework/IAction';
 
 import { IWindow } from '../framework/IWindow';
 declare let window: IWindow;
 
-//this file defines the React component that renders a single asset to the browser window
-//it also contains the logic to change asset properties and save the changes to the database
+//this file defines the React component that renders a single product to the browser window
+//it also contains the logic to change product properties and save the changes to the database
 //most of the used React framework features are already explained in the comments of App.js
 //so this code hopefully mostly explains itself ...
 
 interface IProps {
     edit: boolean;
-    asset: IAssetData;
+    product: IProduct;
 }
 
 interface IState {
@@ -20,7 +20,7 @@ interface IState {
 }
 
 
-export default class SimpleAsset extends React.PureComponent<IProps, IState> {
+export default class SimpleProduct extends React.PureComponent<IProps, IState> {
 
     constructor(props: IProps) {
         super(props);
@@ -45,10 +45,10 @@ export default class SimpleAsset extends React.PureComponent<IProps, IState> {
         if (this.state.edit_mode)
             return (
                 <tr>
-                    <td><input type="text" name="name" value={this.props.asset.asset_name} onChange={this.handleNameChange} /></td>
-                    <td><input type="number" name="value" value={this.props.asset.asset_value} onChange={this.handleValueChange} /> €</td>
+                    <td><input type="text" name="name" value={this.props.product.product_name} onChange={this.handleNameChange} /></td>
+                    <td><input type="number" name="value" value={this.props.product.product_value} onChange={this.handleValueChange} /> €</td>
                     <td>
-                        <button onClick={this.handleSave} id={this.props.asset._id}>save</button>
+                        <button onClick={this.handleSave} id={this.props.product._id}>save</button>
                         <button onClick={this.handleRerenderTest} >increase State Counter</button>
                     </td>
                 </tr>
@@ -56,11 +56,11 @@ export default class SimpleAsset extends React.PureComponent<IProps, IState> {
         else
             return (
                 <tr>
-                    <td>{this.props.asset.asset_name}</td>
-                    <td>{this.props.asset.asset_value} €</td>
+                    <td>{this.props.product.product_name}</td>
+                    <td>{this.props.product.product_value} €</td>
                     <td>
                         <button onClick={this.handleSwitchToEditMode}>edit</button>
-                        <button onClick={this.handleDelete} id={this.props.asset._id}>sell or dispose</button>
+                        <button onClick={this.handleDelete} id={this.props.product._id}>sell or dispose</button>
                         <button onClick={this.handleRerenderTest} >increase State Counter {window.CS.getUIState().counter}</button>
                     </td>
                 </tr>
@@ -71,20 +71,20 @@ export default class SimpleAsset extends React.PureComponent<IProps, IState> {
     }
 
     handleNameChange(event: any) {
-        const newAsset = this.props.asset;
-        newAsset.asset_name =  event.target.value
-        const action: IAssetAction = {
-            type: ActionType.update_asset,
-            asset: newAsset
+        const newproduct = this.props.product;
+        newproduct.product_name =  event.target.value
+        const action: IproductAction = {
+            type: ActionType.update_product,
+            product: newproduct
         }
         window.CS.clientAction(action);
     }
     handleValueChange(event: any) {
-        const newAsset = this.props.asset;
-        newAsset.asset_value = event.target.value;
-        const action: IAssetAction = {
-            type: ActionType.update_asset,
-            asset: newAsset
+        const newproduct = this.props.product;
+        newproduct.product_value = event.target.value;
+        const action: IproductAction = {
+            type: ActionType.update_product,
+            product: newproduct
         }
         window.CS.clientAction(action);
     }
@@ -94,9 +94,9 @@ export default class SimpleAsset extends React.PureComponent<IProps, IState> {
         this.setState({ edit_mode: false });
     }
     handleDelete() {
-        const action: IAssetAction = {
-            type: ActionType.delete_asset,
-            asset:this.props.asset
+        const action: IproductAction = {
+            type: ActionType.delete_product,
+            product:this.props.product
         }
         window.CS.clientAction(action)
     }

@@ -1,5 +1,5 @@
 import React from 'react';
-import SimpleAsset from './components/SimpleAsset'
+import SimpleProduct from './components/SimpleProduct'
 import mongoose from 'mongoose';
 
 import { IAction, ActionType } from './framework/IAction';
@@ -9,17 +9,17 @@ declare let window: IWindow;
 interface IProps {
   stateCounter: number
 }
-export interface IAssetData {
+export interface IProduct {
   _id: string;
-  asset_name: string;
-  asset_value: number;
+  product_name: string;
+  product_value: number;
 }
 
 interface IState {
 }
 
-export interface IAssetAction extends IAction {
-  asset: IAssetData
+export interface IproductAction extends IAction {
+  product: IProduct
 }
 
 export default class App extends React.PureComponent<IProps, IState> {
@@ -28,7 +28,7 @@ export default class App extends React.PureComponent<IProps, IState> {
     console.log("new App component will be initialized");
     super(props);
 
-    this.handleCreateAsset = this.handleCreateAsset.bind(this);
+    this.handleCreateproduct = this.handleCreateproduct.bind(this);
   }
 
   render() {
@@ -36,30 +36,30 @@ export default class App extends React.PureComponent<IProps, IState> {
     return (
       <div>
         <p> {window.CS.getUIState().counter}</p>
-        <h1>simple asset management application</h1>
-        <p>to create a new asset click this button:&nbsp;
-          <button onClick={this.handleCreateAsset}>create asset</button>
+        <h1>simple product management application</h1>
+        <p>to create a new product click this button:&nbsp;
+          <button onClick={this.handleCreateproduct}>create product</button>
         </p>
         <table>
           <tbody>
             <tr><th>description</th><th>value</th><th>action</th></tr>
-            {window.CS.getBMState().assets.map(asset => <SimpleAsset key={asset._id} asset={asset} edit={false} />)}
+            {window.CS.getBMState().products.map(product => <SimpleProduct key={product._id} product={product} edit={false} />)}
           </tbody>
         </table>
       </div>
     );
   }
 
-  handleCreateAsset() {
-    console.log("handleCreateAsset invoked");
-    const newAsset: IAssetData = {
+  handleCreateproduct() {
+    console.log("handleCreateproduct invoked");
+    const newproduct: IProduct = {
       _id: mongoose.Types.ObjectId().toString(),
-      asset_name: "",
-      asset_value: 0
+      product_name: "",
+      product_value: 0
     }
-    const action: IAssetAction = {
-      type: ActionType.create_asset,
-      asset: newAsset
+    const action: IproductAction = {
+      type: ActionType.create_product,
+      product: newproduct
     }
     window.CS.clientAction(action);
   }

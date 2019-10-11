@@ -1,7 +1,7 @@
 import { initial, IState } from '../state/appState'
 import { IWindow } from '../framework/IWindow'
 import { IAction, ActionType } from '../framework/IAction'
-import { IAssetData, IAssetAction } from '../App';
+import { IProduct, IproductAction } from '../App';
 
 declare let window: IWindow;
 
@@ -14,24 +14,24 @@ export const reducer = (state = initial, action: IAction) => {
         case ActionType.INIT:
             return newState;
 
-        case ActionType.create_asset:
-            const createAction = action as IAssetAction
-            newState.BM.assets.push(createAction.asset);
+        case ActionType.create_product:
+            const createAction = action as IproductAction
+            newState.BM.products.push(createAction.product);
             return newState;
 
-        case ActionType.update_asset:
-            let updateAction = action as IAssetAction;
-            let assetToChange: IAssetData[] = newState.BM.assets.filter(asset => asset._id === updateAction.asset._id)
-            console.log(assetToChange);
-            assetToChange[0].asset_name = updateAction.asset.asset_name;
-            assetToChange[0].asset_value = updateAction.asset.asset_value;
+        case ActionType.update_product:
+            let updateAction = action as IproductAction;
+            let productToChange: IProduct[] = newState.BM.products.filter(product => product._id === updateAction.product._id)
+            console.log(productToChange);
+            productToChange[0].product_name = updateAction.product.product_name;
+            productToChange[0].product_value = updateAction.product.product_value;
             return newState;
 
-        case ActionType.delete_asset:
+        case ActionType.delete_product:
             console.log("Delete Action");
-            let deleteAction = action as IAssetAction;
-            let assetsToKeep: IAssetData[] = newState.BM.assets.filter(asset => asset._id !== deleteAction.asset._id)
-            newState.BM.assets = assetsToKeep;
+            let deleteAction = action as IproductAction;
+            let productsToKeep: IProduct[] = newState.BM.products.filter(product => product._id !== deleteAction.product._id)
+            newState.BM.products = productsToKeep;
             return newState;
 
         default:

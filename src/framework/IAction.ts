@@ -1,8 +1,8 @@
 export enum ActionType {
     INIT = "@@INIT",
-    create_asset = "create_asset",
-    update_asset = "update_asset",
-    delete_asset = "delete_asset",
+    create_product = "create_product",
+    update_product = "update_product",
+    delete_product = "delete_product",
     render_test = "render_test" 
 }
 export interface IAction {
