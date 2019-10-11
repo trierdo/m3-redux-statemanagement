@@ -49,8 +49,7 @@ App.tsx / AppState.ts /index.tsx
 	
 	const currentIndex: number = window.CS.getBMState().products.findIndex(product => this.props.product._id === product._id);
 	
-	
-	replace this.state.product => window.CS.getBMState().products[currentIndex]
+	replace: this.state.product => window.CS.getBMState().products[currentIndex]
 
 ####  Create empty method and bind it in SimpleProduct: 
 	this.handleAmountChange = this.handleAmountChange.bind(this);
@@ -58,14 +57,14 @@ App.tsx / AppState.ts /index.tsx
 
 ####  At the SimpleProduct.tsx … add input fields for active edit.mode:
 	
-	`<td><input type="number" name="value" value={window.CS.getBMState().products[0].product_amount} 
+	<td><input type="number" name="value" value={window.CS.getBMState().products[0].product_amount} 
 	onChange={this.handleAmountChange} /></td>
 	
-	<td>{window.CS.getBMState().products[0].product_totalPrice} €</td>`
+	<td>{window.CS.getBMState().products[0].product_totalPrice} €</td>
 	 
 	..for inactive edit.mode:
 	
-	`<td>{window.CS.getBMState().products[0].product_amount}</td>
-	<td>{window.CS.getBMState().products[0].product_totalPrice} €</td>`
+	<td>{window.CS.getBMState().products[0].product_amount}</td>
+	<td>{window.CS.getBMState().products[0].product_totalPrice} €</td>
  
 
