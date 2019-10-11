@@ -8,6 +8,9 @@ interface IProduct {
     _id: string;
     product_name: string;
     product_value: number;
+    product_amount: number;
+	product_totalPrice: number;
+
   }
 
 export interface IBM{

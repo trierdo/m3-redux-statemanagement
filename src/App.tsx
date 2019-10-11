@@ -1,7 +1,6 @@
 import React from 'react';
 import SimpleProduct from './components/SimpleProduct'
 import mongoose from 'mongoose';
-
 import { IAction, ActionType } from './framework/IAction';
 import { IWindow } from './framework/IWindow'
 declare let window: IWindow;
@@ -13,6 +12,8 @@ export interface IProduct {
   _id: string;
   product_name: string;
   product_value: number;
+  product_amount: number;
+  product_totalPrice: number;
 }
 
 interface IState {
@@ -42,7 +43,13 @@ export default class App extends React.PureComponent<IProps, IState> {
         </p>
         <table>
           <tbody>
-            <tr><th>description</th><th>value</th><th>action</th></tr>
+            <tr>	
+              <th>description</th>
+              <th>value</th>
+              <th>amount</th>
+              <th>total Price</th>
+              <th>action</th>
+            </tr>
             {window.CS.getBMState().products.map(product => <SimpleProduct key={product._id} product={product} edit={false} />)}
           </tbody>
         </table>
@@ -55,7 +62,9 @@ export default class App extends React.PureComponent<IProps, IState> {
     const newproduct: IProduct = {
       _id: mongoose.Types.ObjectId().toString(),
       product_name: "",
-      product_value: 0
+      product_value: 0,
+      product_amount: 1,
+      product_totalPrice: 0
     }
     const action: IproductAction = {
       type: ActionType.create_product,

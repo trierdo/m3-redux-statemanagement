@@ -35,7 +35,9 @@ window.CS.getStore().subscribe(() => {
 const newproduct: IProduct = {
   _id: mongoose.Types.ObjectId().toString(),
   product_name: "Porsche comes from index.tsx",
-  product_value: 50000
+  product_value: 50000,
+  product_amount: 1,
+  product_totalPrice: 50000
 };
 const action: IproductAction = {
   type: ActionType.create_product,

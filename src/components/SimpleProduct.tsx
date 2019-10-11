@@ -28,6 +28,7 @@ export default class SimpleProduct extends React.PureComponent<IProps, IState> {
         this.handleSwitchToEditMode = this.handleSwitchToEditMode.bind(this);
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleValueChange = this.handleValueChange.bind(this);
+        this.handleAmountChange = this.handleAmountChange.bind(this);
         this.handleSave = this.handleSave.bind(this);
         this.handleRerenderTest = this.handleRerenderTest.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
@@ -40,6 +41,8 @@ export default class SimpleProduct extends React.PureComponent<IProps, IState> {
 
     render() {
 
+        const currentIndex: number = 
+        window.CS.getBMState().products.findIndex(product => this.props.product._id === product._id);
         //if the component is in edit mode, it will render different than if it just shows the data
 
         if (this.state.edit_mode)
@@ -47,6 +50,8 @@ export default class SimpleProduct extends React.PureComponent<IProps, IState> {
                 <tr>
                     <td><input type="text" name="name" value={this.props.product.product_name} onChange={this.handleNameChange} /></td>
                     <td><input type="number" name="value" value={this.props.product.product_value} onChange={this.handleValueChange} /> €</td>
+                    <td><input type="number" name="value" value={window.CS.getBMState().products[currentIndex].product_amount} onChange={this.handleAmountChange} /></td>
+                    <td>{window.CS.getBMState().products[currentIndex].product_totalPrice} €</td>
                     <td>
                         <button onClick={this.handleSave} id={this.props.product._id}>save</button>
                         <button onClick={this.handleRerenderTest} >increase State Counter</button>
@@ -58,6 +63,8 @@ export default class SimpleProduct extends React.PureComponent<IProps, IState> {
                 <tr>
                     <td>{this.props.product.product_name}</td>
                     <td>{this.props.product.product_value} €</td>
+                    <td>{window.CS.getBMState().products[currentIndex].product_amount}</td>
+                    <td>{window.CS.getBMState().products[currentIndex].product_totalPrice} €</td>
                     <td>
                         <button onClick={this.handleSwitchToEditMode}>edit</button>
                         <button onClick={this.handleDelete} id={this.props.product._id}>sell or dispose</button>
@@ -89,6 +96,9 @@ export default class SimpleProduct extends React.PureComponent<IProps, IState> {
         window.CS.clientAction(action);
     }
 
+    handleAmountChange(event: any) {
+
+    }
     
     handleSave(event: any) {
         this.setState({ edit_mode: false });
