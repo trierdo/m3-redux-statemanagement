@@ -1,16 +1,25 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# TypeScript & Redux Lab
 
-## Available Scripts
+### Prepare your project:
 
-In the project directory, you can run:
+1. Fork the repo
+2. Clone the repo
+3. Reinstall the modules using npm install
+4. Start the app using `npm start`
 
-### `npm start`
+### Let's change it to a product management tool
 
-## Typescript and Redux Framework
+change the headline to: simple product management application
 
-This is an example app to show how to build a scalabe singele page progressive web app with typescript, redux and react
+adapt filename & import path for the child component
+    src/components/SimpleAsset.tsx => SimpleProduct.tsx
 
-react is as loosly coupled as possible to the concept, and could be easily repaced by native WebComponents
+rename the class name in SimpleProduct.tsx to SimpleProduct
 
-https://developer.mozilla.org/de/docs/Web/Web_Components
+within the App.tsx adapt component name  in import def & component call 
+    SimpleAsset => SimpleProduct
+
+Use the Replace in Files function of VSCode to replace...
+IAssetData =>  IProduct
+asset => product (but make sure, you do not touch the package.json or serviceworker.js)
 
