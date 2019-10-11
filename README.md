@@ -23,20 +23,20 @@
 IAssetData =>  IProduct
 asset => product (but make sure, you do not touch the package.json or serviceworker.js)
 
-### iteration 2: Extend the product model:
+### iteration 2: Extend the product model
 
-* Add new properties to the model: 
+#### Add new properties to the model: 
 
 App.tsx / AppState.ts /index.tsx
 	  product_amount: number; 
 	  product_totalPrice: number;`
 	
-At the handleCreateProduct() method for the newProduct;
+#### At the handleCreateProduct() method for the newProduct;
 	      product_amount: 1,
 	      product_totalPrice: 0
 	
 	
-* At the app, create new rows, replace the th tags:
+####  At the app, create new rows, replace the th tags:
 	           <tr>  
 	              <th>description</th>
 	              <th>value</th>
@@ -45,27 +45,27 @@ At the handleCreateProduct() method for the newProduct;
 	              <th>action</th>
 	            </tr>
 	
-* At the SimpleProduct component render with ...
+####  At the SimpleProduct component render with ...
 	
 	const currentIndex: number = window.CS.getBMState().products.findIndex(product => this.props.product._id === product._id);
 	
 	
 	replace this.state.product => window.CS.getBMState().products[currentIndex]
 
-* Create empty method and bind it in SimpleProduct: 
+####  Create empty method and bind it in SimpleProduct: 
 	this.handleAmountChange = this.handleAmountChange.bind(this);
 	handleAmountChange(event: any) { }
 
-* At the SimpleProduct.tsx … add input fields for active edit.mode:
+####  At the SimpleProduct.tsx … add input fields for active edit.mode:
 	
-	<td><input type="number" name="value" value={window.CS.getBMState().products[0].product_amount} 
+	`<td><input type="number" name="value" value={window.CS.getBMState().products[0].product_amount} 
 	onChange={this.handleAmountChange} /></td>
 	
-	<td>{window.CS.getBMState().products[0].product_totalPrice} €</td>
+	<td>{window.CS.getBMState().products[0].product_totalPrice} €</td>`
 	 
 	..for inactive edit.mode:
 	
-	<td>{window.CS.getBMState().products[0].product_amount}</td>
-	<td>{window.CS.getBMState().products[0].product_totalPrice} €</td>
+	`<td>{window.CS.getBMState().products[0].product_amount}</td>
+	<td>{window.CS.getBMState().products[0].product_totalPrice} €</td>`
  
 
