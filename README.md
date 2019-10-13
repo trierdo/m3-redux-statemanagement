@@ -27,13 +27,13 @@ asset => product (but make sure, you do not touch the package.json or servicewor
 
 #### Add new properties to the model: 
 
-App.tsx / AppState.ts /index.tsx
-	  product_amount: number; 
-	  product_totalPrice: number;`
+App.tsx / AppState.ts /index.tsx / appReducer (update_product)
+- product_amount: number; 
+- product_totalPrice: number;
 	
 #### At the handleCreateProduct() method for the newProduct;
-	      product_amount: 1,
-	      product_totalPrice: 0
+- product_amount: 1,
+- product_totalPrice: 0
 	
 	
 ####  At the app, create new rows, replace the th tags:
@@ -46,12 +46,13 @@ App.tsx / AppState.ts /index.tsx
 	            </tr>
 	
 ####  At the SimpleProduct component render with ...
-	
-	const currentIndex: number = window.CS.getBMState().products.findIndex(product => this.props.product._id === product._id);
+
+const currentIndex: number = window.CS.getBMState().products.findIndex(product => this.props.product._id === product._id);
 	
 	replace: this.state.product => window.CS.getBMState().products[currentIndex]
 
 ####  Create empty method and bind it in SimpleProduct: 
+
 	this.handleAmountChange = this.handleAmountChange.bind(this);
 	handleAmountChange(event: any) { }
 
@@ -61,10 +62,22 @@ App.tsx / AppState.ts /index.tsx
 	onChange={this.handleAmountChange} /></td>
 	
 	<td>{window.CS.getBMState().products[0].product_totalPrice} €</td>
+
+
 	 
-	..for inactive edit.mode:
+#### for inactive edit.mode:
 	
 	<td>{window.CS.getBMState().products[0].product_amount}</td>
 	<td>{window.CS.getBMState().products[0].product_totalPrice} €</td>
  
+#### for active edit mode, define two more methods to increase or decrease the amount: 
+
+within the amount cell of the simple product table, add two buttons to increase and decrease the amount:
+    <button onClick={this.handleAmountIncrease}>+</button>
+    <button onClick={this.handleAmountDecrease}>-</button>
+
+define and bind these two new event based methods. 
+Make the onchange method for the amount field innecessary by moving the logic of handleAmountChange to those two buttons.
+disable the amount field for editing.
+
 

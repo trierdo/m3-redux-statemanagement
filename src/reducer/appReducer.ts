@@ -25,6 +25,8 @@ export const reducer = (state = initial, action: IAction) => {
             console.log(productToChange);
             productToChange[0].product_name = updateAction.product.product_name;
             productToChange[0].product_value = updateAction.product.product_value;
+            productToChange[0].product_amount = updateAction.product.product_amount;
+            productToChange[0].product_totalPrice = updateAction.product.product_totalPrice;
             return newState;
 
         case ActionType.delete_product:
