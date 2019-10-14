@@ -1,7 +1,7 @@
 import { initial, IState } from '../state/appState'
 import { IWindow } from '../framework/IWindow'
 import { IAction, ActionType } from '../framework/IAction'
-import { IProduct, IproductAction } from '../App';
+import { IProduct, IproductAction, IUserAction } from '../App';
 
 declare let window: IWindow;
 
@@ -18,6 +18,19 @@ export const reducer = (state = initial, action: IAction) => {
             const createAction = action as IproductAction
             newState.BM.products.push(createAction.product);
             return newState;
+
+        case ActionType.login:
+            const loginAction = action as IUserAction;
+            newState.UI.credentials.user = loginAction.credentials.user;
+            newState.UI.credentials.password = loginAction.credentials.password;
+            newState.UI.loggedIn = true;
+            return newState;
+
+            case ActionType.logout:
+                    newState.UI.credentials.user = '';
+                    newState.UI.credentials.password = '';
+                    newState.UI.loggedIn = false;
+                    return newState;
 
         case ActionType.update_product:
             let updateAction = action as IproductAction;

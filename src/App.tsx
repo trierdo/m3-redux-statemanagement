@@ -1,6 +1,7 @@
 import React from 'react';
 import SimpleProduct from './components/SimpleProduct';
 import SimpleSum from './components/SimpleSum';
+import SimpleLogin from './components/SimpleLogin';
 import mongoose from 'mongoose';
 import { IAction, ActionType } from './framework/IAction';
 import { IWindow } from './framework/IWindow'
@@ -25,6 +26,15 @@ export interface IproductAction extends IAction {
   product: IProduct
 }
 
+export interface IUser {
+  user: string;
+  password: string;
+}
+
+export interface IUserAction extends IAction {
+  credentials: IUser
+}
+
 export default class App extends React.PureComponent<IProps, IState> {
 
   constructor(props: any) {
@@ -40,6 +50,9 @@ export default class App extends React.PureComponent<IProps, IState> {
       <div>
         <p> {window.CS.getUIState().counter}</p>
         <h1>simple product management application</h1>
+
+        <SimpleLogin isLoggedIn={window.CS.getUIState().loggedIn} />
+
         <p>to create a new product click this button:&nbsp;
           <button onClick={this.handleCreateproduct}>create product</button>
         </p>

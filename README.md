@@ -45,14 +45,14 @@ App.tsx / AppState.ts /index.tsx / appReducer (update_product)
 	    <th>action</th>
     </tr>
 	
-####  At the SimpleProduct component render with e.g.
+####  iteration 3: At the SimpleProduct component replace state calls with redux calls
 
 const currentIndex: number = window.CS.getBMState().products.findIndex(product => this.props.product._id === product._id);
 	
 	replace:  
 	`this.state.product` => `window.CS.getBMState().products[currentIndex]`
 
-####  Create empty method and bind it in SimpleProduct: 
+####  Create temporary empty method and bind it in SimpleProduct: 
 
 	`this.handleAmountChange = this.handleAmountChange.bind(this);`
 	`handleAmountChange(event: any) { }`
@@ -69,7 +69,7 @@ const currentIndex: number = window.CS.getBMState().products.findIndex(produ
 	`<td>{window.CS.getBMState().products[0].product_amount}</td>`
 	<td>{window.CS.getBMState().products[0].product_totalPrice} €</td>  
  
-#### for active edit mode, define two more methods to increase or decrease the amount: 
+#### iteration 4: for active edit mode, define two more methods to increase or decrease the amount: 
 
 within the amount cell of the simple product table, add two buttons to increase and decrease the amount:  
     `<button onClick={this.handleAmountIncrease}>+</button>`
@@ -80,17 +80,60 @@ Make the onchange method for the amount field innecessary by moving the logic of
 disable the amount field for editing.  
 
 
-#### move edit_mode to the product:
+#### iteration 5: move edit_mode to the product:
 
 extend the product model, insert edit_mode and read it where needed. 
 remove it from this.state, IState.
 
-#### Create a new component SimpleSum.
+#### iteration 6: Create a new component SimpleSum.
 
 - call it from below the product list of the app and hand over the list of all products
-- use the same imports as for SimpleProduct
+- use the same imports as for SimpleProduct, make it also available in the App
 - let it render another line of the table
 - below the description row show the count of all products
 - below the amount row show the total amount of all products
 - below the total Price row show the total Price for all products
 - use two methods in the SimpleSum component to calculate the sums
+
+#### iteration 7: Create a new component SimpleLogin
+
+- call it from below the headline of the app and hand over: isLoggedIn
+- use the same imports as for SimpleProduct, make it also available in the App
+- define two event based methods to handleLogin and handleLogout
+- depending on if the user is logged in, render the following:
+                <div>
+                    <p>Log in with your account: &nbsp;
+                    <input type="text" name="username"/> &nbsp;
+                    <input type="password" name="password"/> &nbsp;
+                    <button onClick={this.handleLogin}>log in</button> &nbsp;
+                    </p>
+                </div> 
+OR
+                <div>
+                <p>Welcome back {this.state.username} &nbsp;
+                <button onClick={this.handleLogout}>log out</button>
+                </p>
+                </div>
+
+#### iteration 8: define login and logout actions
+
+- extend state model (IUI.credentials: IUser / IUser.user + IUser.password) with initial empty strings
+- export again IUser in App
+- extend action types enum with login and logout actions
+- in the App: export interface IUserAction extends IAction { credentials: IUser} 
+- make them available in your SimpleLogin Component
+- extend reducer:
+        case ActionType.login:
+            const loginAction = action as IUserAction;
+            newState.UI.credentials.user = loginAction.credentials.user;
+            newState.UI.credentials.password = loginAction.credentials.password;
+            newState.UI.loggedIn = true;
+            return newState;
+
+            case ActionType.logout:
+                    newState.UI.credentials.user = '';
+                    newState.UI.credentials.password = '';
+                    newState.UI.loggedIn = false;
+                    return newState;
+- create and bind methods for handleLogin / handleLogout
+- create and bind methods for tempSaveUser / tempSavePass (save user and pass temporarily in local state)

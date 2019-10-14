@@ -2,7 +2,13 @@ export interface IUI{
     counter: number;
     loggedIn: boolean;
     waitingForResponse:boolean;
+    credentials: IUser;
 }
+
+interface IUser {
+    user: string;
+    password: string;
+    }
 
 interface IProduct {
     _id: string;
@@ -11,7 +17,6 @@ interface IProduct {
     product_amount: number;
     product_totalPrice: number;
     edit_mode: boolean;
-
   }
 
 export interface IBM{
@@ -29,7 +34,11 @@ export const initial:IState = {
 	UI: {
 		counter: 0,
 		loggedIn: false,
-		waitingForResponse: false,
+        waitingForResponse: false,
+        credentials: {
+            user: '',
+            password: ''
+        }
 	},
 	BM: {
         products:[]
