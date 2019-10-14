@@ -1,5 +1,6 @@
 import React from 'react';
-import SimpleProduct from './components/SimpleProduct'
+import SimpleProduct from './components/SimpleProduct';
+import SimpleSum from './components/SimpleSum';
 import mongoose from 'mongoose';
 import { IAction, ActionType } from './framework/IAction';
 import { IWindow } from './framework/IWindow'
@@ -14,6 +15,7 @@ export interface IProduct {
   product_value: number;
   product_amount: number;
   product_totalPrice: number;
+  edit_mode: boolean;
 }
 
 interface IState {
@@ -50,7 +52,8 @@ export default class App extends React.PureComponent<IProps, IState> {
               <th>total Price</th>
               <th>action</th>
             </tr>
-            {window.CS.getBMState().products.map(product => <SimpleProduct key={product._id} product={product} edit={false} />)}
+            {window.CS.getBMState().products.map(product => <SimpleProduct key={product._id} product={product} />)}
+            {<SimpleSum products={window.CS.getBMState().products}/>}
           </tbody>
         </table>
       </div>
@@ -64,7 +67,8 @@ export default class App extends React.PureComponent<IProps, IState> {
       product_name: "",
       product_value: 0,
       product_amount: 1,
-      product_totalPrice: 0
+      product_totalPrice: 0,
+      edit_mode: false
     }
     const action: IproductAction = {
       type: ActionType.create_product,

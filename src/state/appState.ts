@@ -9,7 +9,8 @@ interface IProduct {
     product_name: string;
     product_value: number;
     product_amount: number;
-	product_totalPrice: number;
+    product_totalPrice: number;
+    edit_mode: boolean;
 
   }
 

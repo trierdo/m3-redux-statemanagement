@@ -11,12 +11,10 @@ declare let window: IWindow;
 //so this code hopefully mostly explains itself ...
 
 interface IProps {
-    edit: boolean;
     product: IProduct;
 }
 
 interface IState {
-    edit_mode: boolean;
 }
 
 
@@ -35,7 +33,6 @@ export default class SimpleProduct extends React.PureComponent<IProps, IState> {
         this.handleAmountDecrease = this.handleAmountDecrease.bind(this);
 
         this.state = {
-            edit_mode: props.edit,
         }
 
     }
@@ -46,7 +43,7 @@ export default class SimpleProduct extends React.PureComponent<IProps, IState> {
             window.CS.getBMState().products.findIndex(product => this.props.product._id === product._id);
         //if the component is in edit mode, it will render different than if it just shows the data
 
-        if (this.state.edit_mode)
+        if (window.CS.getBMState().products[currentIndex].edit_mode)
             return (
                 <tr>
                     <td><input type="text" name="name" value={this.props.product.product_name} onChange={this.handleNameChange} /></td>
@@ -79,7 +76,13 @@ export default class SimpleProduct extends React.PureComponent<IProps, IState> {
             )
     }
     handleSwitchToEditMode() {
-        this.setState({ edit_mode: true });
+        const newproduct = this.props.product;
+        newproduct.edit_mode = true;
+        const action: IproductAction = {
+            type: ActionType.update_product,
+            product: newproduct
+        }
+        window.CS.clientAction(action);        
     }
 
     handleNameChange(event: any) {
@@ -102,7 +105,13 @@ export default class SimpleProduct extends React.PureComponent<IProps, IState> {
     }
 
     handleSave(event: any) {
-        this.setState({ edit_mode: false });
+        const newproduct = this.props.product;
+        newproduct.edit_mode = false;
+        const action: IproductAction = {
+            type: ActionType.update_product,
+            product: newproduct
+        }
+        window.CS.clientAction(action);        
     }
     handleDelete() {
         const action: IproductAction = {

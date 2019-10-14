@@ -37,7 +37,8 @@ const newproduct: IProduct = {
   product_name: "Porsche comes from index.tsx",
   product_value: 50000,
   product_amount: 1,
-  product_totalPrice: 50000
+  product_totalPrice: 50000,
+  edit_mode: false
 };
 const action: IproductAction = {
   type: ActionType.create_product,
